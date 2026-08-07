@@ -71,16 +71,24 @@ function albumMarkup(x) {
 }
 
 function lesson(x) {
-  const ws = x.worksheet ? `
+  const ws = x.worksheet ? (() => {
+    const w = typeof x.worksheet === 'object' ? x.worksheet : {};
+    const title = w.title || '學習單';
+    const text = w.text || '';
+    const images = w.images || [];
+    const alts = w.alts || [];
+    const imageMarkup = images.map((src, i) => `
+        <button data-src="${src}"><img src="${src}" alt="${alts[i] || `${title}第${i + 1}頁`}"></button>`).join('');
+    const pdf = w.pdf ? `<a class="btn" href="${w.pdf}" target="_blank">開啟完整 PDF ↗</a>` : '';
+    return `
     <section class="section">
-      ${heading('LEARNING SHEET', '學習單｜典藏登錄卡')}
-      <p class="lead">正面記錄物件的登錄號、名稱、媒材、年代、尺寸、狀況與典藏條件；背面以文字和繪圖規劃典藏品從取得地點移動至博物館的路線。</p>
-      <div class="sheets">
-        <button data-src="assets/images/worksheet-1.png"><img src="assets/images/worksheet-1.png" alt="學習單第一頁"></button>
-        <button data-src="assets/images/worksheet-2.png"><img src="assets/images/worksheet-2.png" alt="學習單第二頁"></button>
+      ${heading('LEARNING SHEET', title)}
+      ${text ? `<p class="lead">${text}</p>` : ''}
+      <div class="sheets">${imageMarkup}
       </div>
-      <a class="btn" href="assets/docs/lesson1-worksheet.pdf" target="_blank">開啟完整 PDF ↗</a>
-    </section>` : '';
+      ${pdf}
+    </section>`;
+  })() : '';
 
   app.innerHTML = `
     <section class="lessonHero"><img src="assets/images/hero.jpg" alt=""><div><a href="#overview">← 回到活動詳情</a><small>SESSION ${x.n} · ${x.status}</small><h1>${x.title}</h1><p>${x.work}</p></div></section>
