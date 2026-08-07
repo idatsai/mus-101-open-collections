@@ -86,7 +86,7 @@ function lesson(x) {
     <section class="lessonHero"><img src="assets/images/hero.jpg" alt=""><div><a href="#overview">← 回到活動詳情</a><small>SESSION ${x.n} · ${x.status}</small><h1>${x.title}</h1><p>${x.work}</p></div></section>
     <section class="meta"><div><small>DATE</small><b>${x.date}</b></div><div><small>TIME</small><b>${x.time}</b></div><div><small>VENUE</small><b>${x.venue}</b></div><div><small>FEE</small><b>${x.fee}</b></div></section>
     <section class="section">${heading('THEME', '課程主題')}<p class="big">${x.lead}</p></section>
-    <section class="section process">${heading('ACTIVITY FLOW', '活動步驟', 'light')}<ol>${x.steps.map((s, i) => `<li><b>0${i + 1}</b><span>${s}</span></li>`).join('')}</ol><p class="note">此區已建立可擴充版型，後續可加入各階段說明、講師提示與現場照片。</p></section>
+    <section class="section process">${heading('ACTIVITY FLOW', '活動步驟', 'light')}<ol>${x.steps.map((s, i) => `<li><b>0${i + 1}</b><span>${s}</span></li>`).join('')}</ol></section>
     ${ws}
     <section class="section making"><div><small>HANDS-ON PRACTICE</small><h2>實作｜${x.work}</h2><p>${x.making}</p></div><aside><small>WORKSHOP</small><b>${x.work}</b></aside></section>
     <section class="section album-section">${heading('ACTIVITY ALBUM', '活動相簿')}${albumMarkup(x)}</section>
